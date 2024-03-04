@@ -1,0 +1,1772 @@
+<app-nav-one></app-nav-one>
+<app-nav-two></app-nav-two>
+<app-candidate-nav></app-candidate-nav>
+<div class="ml-5 mr-5 mb-7 border-2 border-gray-100 rounded-md h-auto">
+
+    <div class="mt-2 mb-2 ml-7 border-2 border-gray-200 rounded-md h-9 width pt-1 pl-3">
+        <div class="flex">
+            <h3 class="text-gray-400 fontsize">Registration Form Completeness</h3>
+            <div class="h-4 w-96 bg-white border-2 rounded-md ml-10 mt-1">
+                <div class="h-3 bg-green-700 rounded-md" [ngStyle]="{ 'width.%' : width}"></div>
+            </div>
+            <h3 class="fontpercentage font-semibold ml-3">{{width}}%</h3>
+        </div>
+        <!-- <mat-progress-bar mode="determinate" [value]="percentagevalue"></mat-progress-bar> -->
+    </div>
+
+    <div class="h-10 bg-blue-100 flex justify-between">
+        <h3 class="fontsize text-black font-semibold pl-5 pt-2">Education Details</h3>
+        <button type="button" (click)="AddEducation()" class="{{showButton}} h-8 w-32 fontsize font-semibold mt-1 mr-7 bg-blue-900 text-white rounded-md">Add Education</button>
+    </div>
+
+    <div class="{{showEducation}} border-2 border-gray-200 m-7">
+        <table>
+            <tr class="bg-blue-50">
+                <th class="fontsize font-semibold py-2 px-3 w-auto">Sr.No.</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">Degree Name</th>
+                <th class="fontsize font-semibold py-2 px-3 w-96">Name of Institution</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">Start Date</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">End Date</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">Total Score</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">Total Marks</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">Percentage</th>
+                <th class="fontsize font-semibold py-2 px-3 w-56">Action</th>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="{{showEditDetails}}">
+        <div class="h-10 bg-blue-100 mt-10 mb-3">
+            <h3 class="fontsize text-black font-semibold pl-5 pt-2">Add/Edit Education Details</h3>
+        </div>
+    </div>
+
+    <form #educationform="ngForm" (ngSubmit)="storeEducationForm(educationform)">
+
+        <div class="{{showEditDetails}}">
+            <div class="ml-5 mr-5 flex">
+                <div class="w-auto ml-32">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Secondary</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <div class="flex mt-3 mb-3">
+                            <input name="secondary" type="radio" (click)="secondaryYes()" required value="true" class="" [(ngModel)]="education.secondary" #secondary="ngModel">
+                            <label class="fontsize font-semibold ml-3">Yes</label>
+                            <input name="secondary" type="radio" (click)="secondaryNo()" required value="false" class="ml-3" [(ngModel)]="education.secondary" #secondary="ngModel">
+                            <label class="fontsize font-semibold ml-3">No</label>
+                        </div>
+                        <div *ngIf="secondary.invalid && (secondary.dirty || secondary.touched)">
+                            <div *ngIf="secondary.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-32">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Higher Secondary</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <div class="flex mt-3">
+                                <input name="highersecondary" type="radio" (click)="highersecondaryYes()" required value="true" class="" [(ngModel)]="education.highersecondary" #highersecondary="ngModel">
+                                <label class="fontsize font-semibold ml-3">Yes</label>
+                                <input name="highersecondary" type="radio" (click)="highersecondaryNo()" required value="false" class="ml-3" [(ngModel)]="education.highersecondary" #highersecondary="ngModel">
+                                <label class="fontsize font-semibold ml-3">No</label>
+                            </div>
+                            <div *ngIf="highersecondary.invalid && (highersecondary.dirty || highersecondary.touched)">
+                                <div *ngIf="highersecondary.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+
+                        <div class="ml-32">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Diploma</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <div class="flex mt-3">
+                                <input name="diploma" type="radio" (click)="DiplomaYes()" required value="true" class="" [(ngModel)]="education.diploma" #diploma="ngModel">
+                                <label class="fontsize font-semibold ml-3">Yes</label>
+                                <input name="diploma" type="radio" (click)="DiplomaNo()" required value="false" class="ml-3" [(ngModel)]="education.diploma" #diploma="ngModel">
+                                <label class="fontsize font-semibold ml-3">No</label>
+                            </div>
+                            <div *ngIf="diploma.invalid && (diploma.dirty || diploma.touched)">
+                                <div *ngIf="diploma.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-32">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Graduation</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <div class="flex mt-3">
+                                <input name="graduation" type="radio" (click)="GraduationYes()" required value="true" class="" [(ngModel)]="education.graduation" #graduation="ngModel">
+                                <label class="fontsize font-semibold ml-3">Yes</label>
+                                <input name="graduation" type="radio" (click)="GraduationNo()" required value="false" class="ml-3" [(ngModel)]="education.graduation" #graduation="ngModel">
+                                <label class="fontsize font-semibold ml-3">No</label>
+                            </div>
+                            <div *ngIf="graduation.invalid && (graduation.dirty || graduation.touched)">
+                                <div *ngIf="graduation.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="{{showSecondary}} w-full">
+
+            <div class="h-10 bg-blue-100 mt-10 mb-3">
+                <h3 class="fontsize text-black font-semibold pl-5 pt-2">Secondary Education Details</h3>
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Degree</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="secdegree" type="text" disabled value="Secondary Education" placeholder="Secondary Education" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.secdegree" #degree="ngModel">
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Institution</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="secschool" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.secschool" #school="ngModel">
+                        <div *ngIf="school.invalid && (school.dirty || school.touched)">
+                            <div *ngIf="school.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Duration of Course <small class="text-red-700"> (in years)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secduration" type="number" required pattern="^[0-9]+$" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.secduration" #duration="ngModel">
+                            <div *ngIf="duration.invalid && (duration.dirty || duration.touched)">
+                                <div *ngIf="duration.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                                <div *ngIf="duration.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Course Start Date</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secstartdate" type="date" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secstartdate" #startdate="ngModel">
+                            <div *ngIf="startdate.invalid && (startdate.dirty || startdate.touched)">
+                                <div *ngIf="startdate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Course End Date</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                                <input name="secenddate" type="date" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secenddate" #enddate="ngModel">
+                            <div *ngIf="enddate.invalid && (enddate.dirty || enddate.touched)">
+                                <div *ngIf="enddate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Board/University</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secboard" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.secboard" #board="ngModel">
+                            <div *ngIf="board.invalid && (board.dirty || board.touched)">
+                                <div *ngIf="board.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Branch</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <select name="secbranch" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secbranch" #branch="ngModel">
+                                <option class="fontsize font-semibold">General</option>
+                                <option class="fontsize font-semibold">Science</option>
+                                <option class="fontsize font-semibold">Technology</option>
+                                <option class="fontsize font-semibold">Others</option>
+                            </select>
+                            <div *ngIf="branch.invalid && (branch.dirty || branch.touched)">
+                                <div *ngIf="branch.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Total Score <small class="text-red-700">(out of total marks)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="sectotalscore" type="number" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.sectotalscore" #totalscore="ngModel">
+                            <div *ngIf="totalscore.invalid && (totalscore.dirty || totalscore.touched)">
+                                <div *ngIf="totalscore.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Total Marks <small class="text-red-700"> (100*total subject)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="sectotalmarks" required type="number" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.sectotalmarks" #totalmarks="ngModel">
+                        <div *ngIf="totalmarks.invalid && (totalmarks.dirty || totalmarks.touched)">
+                            <div *ngIf="totalmarks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Percentage</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secpercentage" type="number" value="{{totalscore.value/totalmarks.value*100}}" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.secpercentage" #percentage="ngModel">
+                            <div *ngIf="percentage.invalid && (percentage.dirty || percentage.touched)">
+                                <div *ngIf="percentage.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Institution State</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secschoolstate" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secschoolstate" #schoolstate="ngModel">
+                            <div *ngIf="schoolstate.invalid && (schoolstate.dirty || schoolstate.touched)">
+                                <div *ngIf="schoolstate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Institution City</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                                <input name="secschoolcity" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secschoolcity" #schoolcity="ngModel">
+                            <div *ngIf="schoolcity.invalid && (schoolcity.dirty || schoolcity.touched)">
+                                <div *ngIf="schoolcity.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="h-10 bg-blue-100 mt-10 mb-3">
+                <h3 class="fontsize text-black font-semibold pl-5 pt-2">Course Details</h3>
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">First Subject Name</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="secsubject1name" required type="text" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.secsubject1name" #subject1name="ngModel">
+                        <div *ngIf="subject1name.invalid && (subject1name.dirty || subject1name.touched)">
+                            <div *ngIf="subject1name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Third Subject Name</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="secsubject3name" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.secsubject3name" #subject3name="ngModel">
+                        <div *ngIf="subject3name.invalid && (subject3name.dirty || subject3name.touched)">
+                            <div *ngIf="subject3name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">First Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secsubject1marks" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.secsubject1marks" #subject1marks="ngModel">
+                            <div *ngIf="subject1marks.invalid && (subject1marks.dirty || subject1marks.touched)">
+                                <div *ngIf="subject1marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Second Subject Name</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secsubject2name" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secsubject2name" #subject2name="ngModel">
+                            <div *ngIf="subject2name.invalid && (subject2name.dirty || subject2name.touched)">
+                                <div *ngIf="subject2name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Second Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secsubject2marks" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secsubject2marks" #subject2marks="ngModel">
+                            <div *ngIf="subject2marks.invalid && (subject2marks.dirty || subject2marks.touched)">
+                                <div *ngIf="subject2marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Third Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secsubject3marks" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.secsubject3marks" #subject3marks="ngModel">
+                            <div *ngIf="subject3marks.invalid && (subject3marks.dirty || subject3marks.touched)">
+                                <div *ngIf="subject3marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fourth Subject Name</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secsubject4name" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secsubject4name" #subject4name="ngModel">
+                            <div *ngIf="subject4name.invalid && (subject4name.dirty || subject4name.touched)">
+                                <div *ngIf="subject4name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fourth Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secsubject4marks" type="number" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secsubject4marks" #subject4marks="ngModel">
+                            <div *ngIf="subject4marks.invalid && (subject4marks.dirty || subject4marks.touched)">
+                                <div *ngIf="subject4marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Fifth Subject Name</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="secsubject5name" required type="text" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.secsubject5name" #subject5name="ngModel">
+                        <div *ngIf="subject5name.invalid && (subject5name.dirty || subject5name.touched)">
+                            <div *ngIf="subject5name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Seventh Subject Name</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="secsubject7name" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.secsubject7name" #subject7name="ngModel">
+                        <div *ngIf="subject7name.invalid && (subject7name.dirty || subject7name.touched)">
+                            <div *ngIf="subject7name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fifth Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secsubject5marks" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.secsubject5marks" #subject5marks="ngModel">
+                            <div *ngIf="subject5marks.invalid && (subject5marks.dirty || subject5marks.touched)">
+                                <div *ngIf="subject5marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Sixth Subject Name</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secsubject6name" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secsubject6name" #subject6name="ngModel">
+                            <div *ngIf="subject6name.invalid && (subject6name.dirty || subject6name.touched)">
+                                <div *ngIf="subject6name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Sixth Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secsubject6marks" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secsubject6marks" #subject6marks="ngModel">
+                            <div *ngIf="subject6marks.invalid && (subject6marks.dirty || subject6marks.touched)">
+                                <div *ngIf="subject6marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Seventh Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="secsubject7marks" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.secsubject7marks" #subject7marks="ngModel">
+                            <div *ngIf="subject7marks.invalid && (subject7marks.dirty || subject7marks.touched)">
+                                <div *ngIf="subject7marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Eighth Subject Name</label>
+                            </div>
+                            <input name="secsubject8name" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secsubject8name" #subject8name="ngModel">
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Eighth Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                            </div>
+                            <input name="secsubject8marks" type="number" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.secsubject8marks" #subject8marks="ngModel">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+        <div class="{{showHigherSecondary}} w-full">
+
+            <div class="h-10 bg-blue-100 mt-10 mb-3">
+                <h3 class="fontsize text-black font-semibold pl-5 pt-2">Higher Secondary Education Details</h3>
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Degree</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="highsecdegree" type="text" disabled value="Higher Secondary Education" placeholder="Higher Secondary Education" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.highsecdegree" #highsecdegree="ngModel">
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Institution</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="highsecschool" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.highsecschool" #highsecschool="ngModel">
+                        <div *ngIf="highsecschool.invalid && (highsecschool.dirty || highsecschool.touched)">
+                            <div *ngIf="highsecschool.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Duration of Course <small class="text-red-700"> (in years)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecduration" type="number" required pattern="^[0-9]+$" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.highsecduration" #highsecduration="ngModel">
+                            <div *ngIf="highsecduration.invalid && (highsecduration.dirty || highsecduration.touched)">
+                                <div *ngIf="highsecduration.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                                <div *ngIf="highsecduration.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Course Start Date</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecstartdate" type="date" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsecstartdate" #highsecstartdate="ngModel">
+                            <div *ngIf="highsecstartdate.invalid && (highsecstartdate.dirty || highsecstartdate.touched)">
+                                <div *ngIf="highsecstartdate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Course End Date</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                                <input name="highsecenddate" type="date" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsecenddate" #highsecenddate="ngModel">
+                            <div *ngIf="highsecenddate.invalid && (highsecenddate.dirty || highsecenddate.touched)">
+                                <div *ngIf="highsecenddate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Board/University</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecboard" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.highsecboard" #highsecboard="ngModel">
+                            <div *ngIf="highsecboard.invalid && (highsecboard.dirty || highsecboard.touched)">
+                                <div *ngIf="highsecboard.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Branch</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <select name="highsecbranch" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsecbranch" #highsecbranch="ngModel">
+                                <option class="fontsize font-semibold">General</option>
+                                <option class="fontsize font-semibold">Science</option>
+                                <option class="fontsize font-semibold">Technology</option>
+                                <option class="fontsize font-semibold">Others</option>
+                            </select>
+                            <div *ngIf="highsecbranch.invalid && (highsecbranch.dirty || highsecbranch.touched)">
+                                <div *ngIf="highsecbranch.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Total Score <small class="text-red-700">(out of total marks)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsectotalscore" type="number" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsectotalscore" #highsectotalscore="ngModel">
+                            <div *ngIf="highsectotalscore.invalid && (highsectotalscore.dirty || highsectotalscore.touched)">
+                                <div *ngIf="highsectotalscore.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Total Marks <small class="text-red-700"> (100*total subject)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="highsectotalmarks" required type="number" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.highsectotalmarks" #highsectotalmarks="ngModel">
+                        <div *ngIf="highsectotalmarks.invalid && (highsectotalmarks.dirty || highsectotalmarks.touched)">
+                            <div *ngIf="highsectotalmarks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Percentage</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecpercentage" type="number" value="{{highsectotalscore.value/highsectotalmarks.value*100}}" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.highsecpercentage" #highsecpercentage="ngModel">
+                            <div *ngIf="highsecpercentage.invalid && (highsecpercentage.dirty || highsecpercentage.touched)">
+                                <div *ngIf="highsecpercentage.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Institution State</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecschoolstate" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsecschoolstate" #highsecschoolstate="ngModel">
+                            <div *ngIf="highsecschoolstate.invalid && (highsecschoolstate.dirty || highsecschoolstate.touched)">
+                                <div *ngIf="highsecschoolstate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Institution City</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                                <input name="highsecschoolcity" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsecschoolcity" #highsecschoolcity="ngModel">
+                            <div *ngIf="highsecschoolcity.invalid && (highsecschoolcity.dirty || highsecschoolcity.touched)">
+                                <div *ngIf="highsecschoolcity.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="h-10 bg-blue-100 mt-10 mb-3">
+                <h3 class="fontsize text-black font-semibold pl-5 pt-2">Course Details</h3>
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">First Subject Name</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="highsecsubject1name" required type="text" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject1name" #highsecsubject1name="ngModel">
+                        <div *ngIf="highsecsubject1name.invalid && (highsecsubject1name.dirty || highsecsubject1name.touched)">
+                            <div *ngIf="highsecsubject1name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Third Subject Name</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="highsecsubject3name" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject3name" #highsecsubject3name="ngModel">
+                        <div *ngIf="highsecsubject3name.invalid && (highsecsubject3name.dirty || highsecsubject3name.touched)">
+                            <div *ngIf="highsecsubject3name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">First Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecsubject1marks" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject1marks" #highsecsubject1marks="ngModel">
+                            <div *ngIf="highsecsubject1marks.invalid && (highsecsubject1marks.dirty || highsecsubject1marks.touched)">
+                                <div *ngIf="highsecsubject1marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Second Subject Name</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecsubject2name" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject2name" #highsecsubject2name="ngModel">
+                            <div *ngIf="highsecsubject2name.invalid && (highsecsubject2name.dirty || highsecsubject2name.touched)">
+                                <div *ngIf="highsecsubject2name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Second Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecsubject2marks" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject2marks" #highsecsubject2marks="ngModel">
+                            <div *ngIf="highsecsubject2marks.invalid && (highsecsubject2marks.dirty || highsecsubject2marks.touched)">
+                                <div *ngIf="highsecsubject2marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Third Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecsubject3marks" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject3marks" #highsecsubject3marks="ngModel">
+                            <div *ngIf="highsecsubject3marks.invalid && (highsecsubject3marks.dirty || highsecsubject3marks.touched)">
+                                <div *ngIf="highsecsubject3marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fourth Subject Name</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecsubject4name" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject4name" #highsecsubject4name="ngModel">
+                            <div *ngIf="highsecsubject4name.invalid && (highsecsubject4name.dirty || highsecsubject4name.touched)">
+                                <div *ngIf="highsecsubject4name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fourth Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecsubject4marks" type="number" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject4marks" #highsecsubject4marks="ngModel">
+                            <div *ngIf="highsecsubject4marks.invalid && (highsecsubject4marks.dirty || highsecsubject4marks.touched)">
+                                <div *ngIf="highsecsubject4marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Fifth Subject Name</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="highsecsubject5name" required type="text" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject5name" #highsecsubject5name="ngModel">
+                        <div *ngIf="highsecsubject5name.invalid && (highsecsubject5name.dirty || highsecsubject5name.touched)">
+                            <div *ngIf="highsecsubject5name.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fifth Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="highsecsubject5marks" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject5marks" #highsecsubject5marks="ngModel">
+                            <div *ngIf="highsecsubject5marks.invalid && (highsecsubject5marks.dirty || highsecsubject5marks.touched)">
+                                <div *ngIf="highsecsubject5marks.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Sixth Subject Name</label>
+                            </div>
+                            <input name="highsecsubject6name" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject6name" #highsecsubject6name="ngModel">
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Sixth Subject Score <small class="text-red-700"> (out of 100)</small></label>
+                            </div>
+                            <input name="highsecsubject6marks" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.highsecsubject6marks" #highsecsubject6marks="ngModel">
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+
+        </div>
+
+        <div class="{{showDiploma}} w-full">
+
+            <div class="h-10 bg-blue-100 mt-10 mb-3">
+                <h3 class="fontsize text-black font-semibold pl-5 pt-2">Diploma Details</h3>
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Degree</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="diplomadegree" type="text" disabled value="Diploma" placeholder="Diploma" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomadegree" #diplomadegree="ngModel">
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Institution</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="diplomaschool" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.diplomaschool" #diplomaschool="ngModel">
+                        <div *ngIf="diplomaschool.invalid && (diplomaschool.dirty || diplomaschool.touched)">
+                            <div *ngIf="diplomaschool.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Duration of Course <small class="text-red-700"> (in years)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomaduration" type="number" required pattern="^[0-9]+$" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomaduration" #diplomaduration="ngModel">
+                            <div *ngIf="diplomaduration.invalid && (diplomaduration.dirty || diplomaduration.touched)">
+                                <div *ngIf="diplomaduration.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                                <div *ngIf="diplomaduration.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Course Start Date</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomastartdate" type="date" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomastartdate" #diplomastartdate="ngModel">
+                            <div *ngIf="diplomastartdate.invalid && (diplomastartdate.dirty || diplomastartdate.touched)">
+                                <div *ngIf="diplomastartdate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Course End Date</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                                <input name="diplomaenddate" type="date" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomaenddate" #diplomaenddate="ngModel">
+                            <div *ngIf="diplomaenddate.invalid && (diplomaenddate.dirty || diplomaenddate.touched)">
+                                <div *ngIf="diplomaenddate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">University</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomaboard" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomaboard" #diplomaboard="ngModel">
+                            <div *ngIf="diplomaboard.invalid && (diplomaboard.dirty || diplomaboard.touched)">
+                                <div *ngIf="diplomaboard.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Branch</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomabranch" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomabranch" #diplomabranch="ngModel">
+                            <div *ngIf="diplomabranch.invalid && (diplomabranch.dirty || diplomabranch.touched)">
+                                <div *ngIf="diplomabranch.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">CGPA <small class="text-red-700">(out of 10)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomacgpa" type="number" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomacgpa" #diplomacgpa="ngModel">
+                            <div *ngIf="diplomacgpa.invalid && (diplomacgpa.dirty || diplomacgpa.touched)">
+                                <div *ngIf="diplomacgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Percentage</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="diplomapercentage" type="number" value="{{(diplomacgpa.value - (.75))*10 }}" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.diplomapercentage" #diplomapercentage="ngModel">
+                        
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Institution State</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomaschoolstate" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomaschoolstate" #diplomaschoolstate="ngModel">
+                            <div *ngIf="diplomaschoolstate.invalid && (diplomaschoolstate.dirty || diplomaschoolstate.touched)">
+                                <div *ngIf="diplomaschoolstate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Institution City</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                                <input name="diplomaschoolcity" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomaschoolcity" #diplomaschoolcity="ngModel">
+                            <div *ngIf="diplomaschoolcity.invalid && (diplomaschoolcity.dirty || diplomaschoolcity.touched)">
+                                <div *ngIf="diplomaschoolcity.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="h-10 bg-blue-100 mt-10 mb-3">
+                <h3 class="fontsize text-black font-semibold pl-5 pt-2">Course Details</h3>
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">First Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="diplomasemester1sgpa" required type="number" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester1sgpa" #diplomasemester1sgpa="ngModel">
+                        <div *ngIf="diplomasemester1sgpa.invalid && (diplomasemester1sgpa.dirty || diplomasemester1sgpa.touched)">
+                            <div *ngIf="diplomasemester1sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Second Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="diplomasemester2sgpa" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester2sgpa" #diplomasemester2sgpa="ngModel">
+                        <div *ngIf="diplomasemester2sgpa.invalid && (diplomasemester2sgpa.dirty || diplomasemester2sgpa.touched)">
+                            <div *ngIf="diplomasemester2sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">First Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester1cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester1cgpa" #diplomasemester1cgpa="ngModel">
+                            <div *ngIf="diplomasemester1cgpa.invalid && (diplomasemester1cgpa.dirty || diplomasemester1cgpa.touched)">
+                                <div *ngIf="diplomasemester1cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">First Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester1backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester1backlog" #diplomasemester1backlog="ngModel">
+                            <div *ngIf="diplomasemester1backlog.invalid && (diplomasemester1backlog.dirty || diplomasemester1backlog.touched)">
+                                <div *ngIf="diplomasemester1backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">First Semester Percentage </label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester1percentage" type="number" value="{{(diplomasemester1cgpa.value-(.75))*10}}" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester1percentage" #diplomasemester1percentage="ngModel">
+                            
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Second Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester2cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester2cgpa" #diplomasemester2cgpa="ngModel">
+                            <div *ngIf="diplomasemester2cgpa.invalid && (diplomasemester2cgpa.dirty || diplomasemester2cgpa.touched)">
+                                <div *ngIf="diplomasemester2cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Second Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester2backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester2backlog" #diplomasemester2backlog="ngModel">
+                            <div *ngIf="diplomasemester2backlog.invalid && (diplomasemester2backlog.dirty || diplomasemester2backlog.touched)">
+                                <div *ngIf="diplomasemester2backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Second Semester Percentage</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester2percentage" type="number" value="{{((diplomasemester2cgpa.value)-.75)*10}}" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester2percentage" #diplomasemester2percentage="ngModel">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Third Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="diplomasemester3sgpa" required type="number" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester3sgpa" #diplomasemester3sgpa="ngModel">
+                        <div *ngIf="diplomasemester3sgpa.invalid && (diplomasemester3sgpa.dirty || diplomasemester3sgpa.touched)">
+                            <div *ngIf="diplomasemester3sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Fourth Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="diplomasemester4sgpa" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester4sgpa" #diplomasemester4sgpa="ngModel">
+                        <div *ngIf="diplomasemester4sgpa.invalid && (diplomasemester4sgpa.dirty || diplomasemester4sgpa.touched)">
+                            <div *ngIf="diplomasemester4sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Third Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester3cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester3cgpa" #diplomasemester3cgpa="ngModel">
+                            <div *ngIf="diplomasemester3cgpa.invalid && (diplomasemester3cgpa.dirty || diplomasemester3cgpa.touched)">
+                                <div *ngIf="diplomasemester3cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Third Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester3backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester3backlog" #diplomasemester3backlog="ngModel">
+                            <div *ngIf="diplomasemester3backlog.invalid && (diplomasemester3backlog.dirty || diplomasemester3backlog.touched)">
+                                <div *ngIf="diplomasemester3backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Third Semester Percentage </label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester3percentage" type="number" value="{{(diplomasemester3cgpa.value-(.75))*10}}" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester3percentage" #diplomasemester3percentage="ngModel">
+                            
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fourth Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester4cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester4cgpa" #diplomasemester4cgpa="ngModel">
+                            <div *ngIf="diplomasemester4cgpa.invalid && (diplomasemester4cgpa.dirty || diplomasemester4cgpa.touched)">
+                                <div *ngIf="diplomasemester4cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fourth Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester4backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester4backlog" #diplomasemester4backlog="ngModel">
+                            <div *ngIf="diplomasemester4backlog.invalid && (diplomasemester4backlog.dirty || diplomasemester4backlog.touched)">
+                                <div *ngIf="diplomasemester4backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fourth Semester Percentage</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester4percentage" type="number" value="{{((diplomasemester4cgpa.value)-.75)*10}}" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester4percentage" #diplomasemester4percentage="ngModel">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Fifth Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="diplomasemester5sgpa" required type="number" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester5sgpa" #diplomasemester5sgpa="ngModel">
+                        <div *ngIf="diplomasemester5sgpa.invalid && (diplomasemester5sgpa.dirty || diplomasemester5sgpa.touched)">
+                            <div *ngIf="diplomasemester5sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Sixth Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="diplomasemester6sgpa" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester6sgpa" #diplomasemester6sgpa="ngModel">
+                        <div *ngIf="diplomasemester6sgpa.invalid && (diplomasemester6sgpa.dirty || diplomasemester6sgpa.touched)">
+                            <div *ngIf="diplomasemester6sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fifth Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester5cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester5cgpa" #diplomasemester5cgpa="ngModel">
+                            <div *ngIf="diplomasemester5cgpa.invalid && (diplomasemester5cgpa.dirty || diplomasemester5cgpa.touched)">
+                                <div *ngIf="diplomasemester5cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fifth Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester5backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester5backlog" #diplomasemester5backlog="ngModel">
+                            <div *ngIf="diplomasemester5backlog.invalid && (diplomasemester5backlog.dirty || diplomasemester5backlog.touched)">
+                                <div *ngIf="diplomasemester5backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fifth Semester Percentage </label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester5percentage" type="number" value="{{(diplomasemester5cgpa.value-(.75))*10}}" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester5percentage" #diplomasemester5percentage="ngModel">
+                            
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Sixth Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester6cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester6cgpa" #diplomasemester6cgpa="ngModel">
+                            <div *ngIf="diplomasemester6cgpa.invalid && (diplomasemester6cgpa.dirty || diplomasemester6cgpa.touched)">
+                                <div *ngIf="diplomasemester6cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Sixth Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester6backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester6backlog" #diplomasemester6backlog="ngModel">
+                            <div *ngIf="diplomasemester6backlog.invalid && (diplomasemester6backlog.dirty || diplomasemester6backlog.touched)">
+                                <div *ngIf="diplomasemester6backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Sixth Semester Percentage</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="diplomasemester6percentage" type="number" value="{{((diplomasemester6cgpa.value)-.75)*10}}" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.diplomasemester6percentage" #diplomasemester6percentage="ngModel">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+        <div class="{{showGraduation}} w-full">
+
+            <div class="h-10 bg-blue-100 mt-10 mb-3">
+                <h3 class="fontsize text-black font-semibold pl-5 pt-2">Graduation Details</h3>
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Degree</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="graduationdegree" type="text" disabled value="Graduation" placeholder="Graduation" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.diplomadegree" #diplomadegree="ngModel">
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Institution</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="graduationschool" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.graduationschool" #graduationschool="ngModel">
+                        <div *ngIf="graduationschool.invalid && (graduationschool.dirty || graduationschool.touched)">
+                            <div *ngIf="graduationschool.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Duration of Course <small class="text-red-700"> (in years)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationduration" type="number" required pattern="^[0-9]+$" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationduration" #graduationduration="ngModel">
+                            <div *ngIf="graduationduration.invalid && (graduationduration.dirty || graduationduration.touched)">
+                                <div *ngIf="graduationduration.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                                <div *ngIf="graduationduration.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Course Start Date</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationstartdate" type="date" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationstartdate" #graduationstartdate="ngModel">
+                            <div *ngIf="graduationstartdate.invalid && (graduationstartdate.dirty || graduationstartdate.touched)">
+                                <div *ngIf="graduationstartdate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Course End Date</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                                <input name="graduationenddate" type="date" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationenddate" #graduationenddate="ngModel">
+                            <div *ngIf="graduationenddate.invalid && (graduationenddate.dirty || graduationenddate.touched)">
+                                <div *ngIf="graduationenddate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">University</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationboard" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationboard" #graduationboard="ngModel">
+                            <div *ngIf="graduationboard.invalid && (graduationboard.dirty || graduationboard.touched)">
+                                <div *ngIf="graduationboard.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Branch</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationbranch" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationbranch" #graduationbranch="ngModel">
+                            <div *ngIf="graduationbranch.invalid && (graduationbranch.dirty || graduationbranch.touched)">
+                                <div *ngIf="graduationbranch.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">CGPA <small class="text-red-700">(out of 10)</small></label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationcgpa" type="number" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationcgpa" #graduationcgpa="ngModel">
+                            <div *ngIf="graduationcgpa.invalid && (graduationcgpa.dirty || graduationcgpa.touched)">
+                                <div *ngIf="graduationcgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Percentage</label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="graduationpercentage" type="number" value="{{(graduationcgpa.value - (.75))*10 }}" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.graduationpercentage" #graduationpercentage="ngModel">
+                        
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Institution State</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationschoolstate" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationschoolstate" #graduationschoolstate="ngModel">
+                            <div *ngIf="graduationschoolstate.invalid && (graduationschoolstate.dirty || graduationschoolstate.touched)">
+                                <div *ngIf="graduationschoolstate.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Institution City</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                                <input name="graduationschoolcity" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationschoolcity" #graduationschoolcity="ngModel">
+                            <div *ngIf="graduationschoolcity.invalid && (graduationschoolcity.dirty || graduationschoolcity.touched)">
+                                <div *ngIf="graduationschoolcity.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="h-10 bg-blue-100 mt-10 mb-3">
+                <h3 class="fontsize text-black font-semibold pl-5 pt-2">Course Details</h3>
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">First Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="graduationsemester1sgpa" required type="number" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester1sgpa" #graduationsemester1sgpa="ngModel">
+                        <div *ngIf="graduationsemester1sgpa.invalid && (graduationsemester1sgpa.dirty || graduationsemester1sgpa.touched)">
+                            <div *ngIf="graduationsemester1sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Second Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="graduationsemester2sgpa" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester2sgpa" #graduationsemester2sgpa="ngModel">
+                        <div *ngIf="graduationsemester2sgpa.invalid && (graduationsemester2sgpa.dirty || graduationsemester2sgpa.touched)">
+                            <div *ngIf="graduationsemester2sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">First Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester1cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester1cgpa" #graduationsemester1cgpa="ngModel">
+                            <div *ngIf="graduationsemester1cgpa.invalid && (graduationsemester1cgpa.dirty || graduationsemester1cgpa.touched)">
+                                <div *ngIf="graduationsemester1cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">First Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester1backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester1backlog" #graduationsemester1backlog="ngModel">
+                            <div *ngIf="graduationsemester1backlog.invalid && (graduationsemester1backlog.dirty || graduationsemester1backlog.touched)">
+                                <div *ngIf="graduationsemester1backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">First Semester Percentage </label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester1percentage" type="number" value="{{(graduationsemester1cgpa.value-(.75))*10}}" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester1percentage" #graduationsemester1percentage="ngModel">
+                            
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Second Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester2cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester2cgpa" #graduationsemester2cgpa="ngModel">
+                            <div *ngIf="graduationsemester2cgpa.invalid && (graduationsemester2cgpa.dirty || graduationsemester2cgpa.touched)">
+                                <div *ngIf="graduationsemester2cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Second Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester2backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester2backlog" #graduationsemester2backlog="ngModel">
+                            <div *ngIf="graduationsemester2backlog.invalid && (graduationsemester2backlog.dirty || graduationsemester2backlog.touched)">
+                                <div *ngIf="graduationsemester2backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Second Semester Percentage</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester2percentage" type="number" value="{{((graduationsemester2cgpa.value)-.75)*10}}" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester2percentage" #graduationsemester2percentage="ngModel">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Third Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="graduationsemester3sgpa" required type="number" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester3sgpa" #graduationsemester3sgpa="ngModel">
+                        <div *ngIf="graduationsemester3sgpa.invalid && (graduationsemester3sgpa.dirty || graduationsemester3sgpa.touched)">
+                            <div *ngIf="graduationsemester3sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Fourth Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="graduationsemester4sgpa" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester4sgpa" #graduationsemester4sgpa="ngModel">
+                        <div *ngIf="graduationsemester4sgpa.invalid && (graduationsemester4sgpa.dirty || graduationsemester4sgpa.touched)">
+                            <div *ngIf="graduationsemester4sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Third Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester3cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester3cgpa" #graduationsemester3cgpa="ngModel">
+                            <div *ngIf="graduationsemester3cgpa.invalid && (graduationsemester3cgpa.dirty || graduationsemester3cgpa.touched)">
+                                <div *ngIf="graduationsemester3cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Third Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester3backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester3backlog" #graduationsemester3backlog="ngModel">
+                            <div *ngIf="graduationsemester3backlog.invalid && (graduationsemester3backlog.dirty || graduationsemester3backlog.touched)">
+                                <div *ngIf="graduationsemester3backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Third Semester Percentage </label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester3percentage" type="number" value="{{(graduationsemester3cgpa.value-(.75))*10}}" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester3percentage" #graduationsemester3percentage="ngModel">
+                            
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fourth Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester4cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester4cgpa" #graduationsemester4cgpa="ngModel">
+                            <div *ngIf="graduationsemester4cgpa.invalid && (graduationsemester4cgpa.dirty || graduationsemester4cgpa.touched)">
+                                <div *ngIf="graduationsemester4cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fourth Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester4backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester4backlog" #graduationsemester4backlog="ngModel">
+                            <div *ngIf="graduationsemester4backlog.invalid && (graduationsemester4backlog.dirty || graduationsemester4backlog.touched)">
+                                <div *ngIf="graduationsemester4backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fourth Semester Percentage</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester4percentage" type="number" value="{{((graduationsemester4cgpa.value)-.75)*10}}" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester4percentage" #graduationsemester4percentage="ngModel">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="ml-5 mr-5 flex">
+
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Fifth Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="graduationsemester5sgpa" required type="number" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester5sgpa" #graduationsemester5sgpa="ngModel">
+                        <div *ngIf="graduationsemester5sgpa.invalid && (graduationsemester5sgpa.dirty || graduationsemester5sgpa.touched)">
+                            <div *ngIf="graduationsemester5sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Sixth Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="graduationsemester6sgpa" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester6sgpa" #graduationsemester6sgpa="ngModel">
+                        <div *ngIf="graduationsemester6sgpa.invalid && (graduationsemester6sgpa.dirty || graduationsemester6sgpa.touched)">
+                            <div *ngIf="graduationsemester6sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fifth Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester5cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester5cgpa" #graduationsemester5cgpa="ngModel">
+                            <div *ngIf="graduationsemester5cgpa.invalid && (graduationsemester5cgpa.dirty || graduationsemester5cgpa.touched)">
+                                <div *ngIf="graduationsemester5cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fifth Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester5backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester5backlog" #graduationsemester5backlog="ngModel">
+                            <div *ngIf="graduationsemester5backlog.invalid && (graduationsemester5backlog.dirty || graduationsemester5backlog.touched)">
+                                <div *ngIf="graduationsemester5backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Fifth Semester Percentage </label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester5percentage" type="number" value="{{(graduationsemester5cgpa.value-(.75))*10}}" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester5percentage" #graduationsemester5percentage="ngModel">
+                            
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Sixth Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester6cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester6cgpa" #graduationsemester6cgpa="ngModel">
+                            <div *ngIf="graduationsemester6cgpa.invalid && (graduationsemester6cgpa.dirty || graduationsemester6cgpa.touched)">
+                                <div *ngIf="graduationsemester6cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Sixth Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester6backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester6backlog" #graduationsemester6backlog="ngModel">
+                            <div *ngIf="graduationsemester6backlog.invalid && (graduationsemester6backlog.dirty || graduationsemester6backlog.touched)">
+                                <div *ngIf="graduationsemester6backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Sixth Semester Percentage</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester6percentage" type="number" value="{{((graduationsemester6cgpa.value)-.75)*10}}" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester6percentage" #graduationsemester6percentage="ngModel">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="ml-5 mr-5 mb-5 flex">
+
+                <div class="w-3/12">
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Seventh Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="graduationsemester7sgpa" required type="number" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester7sgpa" #graduationsemester7sgpa="ngModel">
+                        <div *ngIf="graduationsemester7sgpa.invalid && (graduationsemester7sgpa.dirty || graduationsemester7sgpa.touched)">
+                            <div *ngIf="graduationsemester7sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+        
+                    <div class="pt-2">
+                        <div class="flex">
+                            <label class="fontsize font-semibold">Eighth Semester Score <small class="text-red-700">(SGPA)</small></label>
+                            <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                        </div>
+                        <input name="graduationsemester8sgpa" type="text" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-2 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester8sgpa" #graduationsemester8sgpa="ngModel">
+                        <div *ngIf="graduationsemester8sgpa.invalid && (graduationsemester8sgpa.dirty || graduationsemester8sgpa.touched)">
+                            <div *ngIf="graduationsemester8sgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Seventh Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester7cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester7cgpa" #graduationsemester7cgpa="ngModel">
+                            <div *ngIf="graduationsemester7cgpa.invalid && (graduationsemester7cgpa.dirty || graduationsemester7cgpa.touched)">
+                                <div *ngIf="graduationsemester7cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Seventh Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester7backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester7backlog" #graduationsemester7backlog="ngModel">
+                            <div *ngIf="graduationsemester7backlog.invalid && (graduationsemester7backlog.dirty || graduationsemester7backlog.touched)">
+                                <div *ngIf="graduationsemester7backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Seventh Semester Percentage </label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester7percentage" type="number" value="{{(graduationsemester7cgpa.value-(.75))*10}}" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester7percentage" #graduationsemester7percentage="ngModel">
+                            
+                        </div>
+                    </div>
+        
+                    <div class="pt-2 flex">
+                        <div class="ml-5">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Eighth Semester CGPA</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester8cgpa" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester8cgpa" #graduationsemester8cgpa="ngModel">
+                            <div *ngIf="graduationsemester8cgpa.invalid && (graduationsemester8cgpa.dirty || graduationsemester8cgpa.touched)">
+                                <div *ngIf="graduationsemester8cgpa.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Eighth Semester Backlogs</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester8backlog" type="number" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester8backlog" #graduationsemester8backlog="ngModel">
+                            <div *ngIf="graduationsemester8backlog.invalid && (graduationsemester8backlog.dirty || graduationsemester8backlog.touched)">
+                                <div *ngIf="graduationsemester8backlog.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
+                            </div>
+                        </div>
+        
+                        <div class="ml-14">
+                            <div class="flex">
+                                <label class="fontsize font-semibold">Eighth Semester Percentage</label>
+                                <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
+                            </div>
+                            <input name="graduationsemester8percentage" type="number" value="{{((graduationsemester8cgpa.value)-.75)*10}}" required  class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="education.graduationsemester8percentage" #graduationsemester8percentage="ngModel">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+        <div class="{{showSaveCancelButton}}">
+            <div class="mt-10 mb-10 flex ml-96 mr-96">
+                <button [disabled]="educationform.form.invalid" type="submit" class="bg-blue-900 w-14 h-7 text-center font-semibold text-white fontsize rounded-md ml-64">Save</button>
+                <button type="button" (click)="resetEducationForm(educationform)" class="w-16 h-7 text-center text-blue-900 fontsize font-semibold rounded-md border-2 border-blue-900 ml-16">Cancel</button>
+            </div>
+        </div>
+
+    </form>
+</div>

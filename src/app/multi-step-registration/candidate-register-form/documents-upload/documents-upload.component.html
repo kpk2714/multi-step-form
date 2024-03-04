@@ -1,0 +1,565 @@
+<app-nav-one></app-nav-one>
+<app-nav-two></app-nav-two>
+<app-candidate-nav></app-candidate-nav>
+<div class="ml-5 mr-5 mb-7 border-2 border-gray-100 rounded-md h-auto">
+    <div class="mt-2 mb-2 ml-7 border-2 border-gray-200 rounded-md h-9 width pt-1 pl-3">
+        <div class="flex">
+            <h3 class="text-gray-400 fontsize">Registration Form Completeness</h3>
+            <div class="h-4 w-96 bg-white border-2 rounded-md ml-10 mt-1">
+                <div class="h-3 bg-green-700 rounded-md" [ngStyle]="{ 'width.%' : width}"></div>
+            </div>
+            <h3 class="fontpercentage font-semibold ml-3">{{width}}%</h3>
+        </div>
+        <!-- <mat-progress-bar mode="determinate" [value]="percentagevalue"></mat-progress-bar> -->
+    </div>
+
+    <div class="h-10 bg-blue-100 flex justify-between">
+        <h3 class="fontsize text-black font-semibold pl-5 pt-2">General Documents</h3>
+    </div>
+
+    <div class="m-7 border-2 border-gray-100 rounded-md h-28 bg-blue-50">
+        <div class="flex fontsizedocuments font-bold">
+            <i class="bi bi-exclamation-circle-fill font-bold text-blue-700 ml-7 fontincrease"></i>
+            <h2 class="font-bold text-blue-700 ml-2.5 mt-2">Note</h2>
+            <i class="bi bi-circle-fill ml-10 mt-3"></i>
+            <p class="ml-3 mt-3"> Only Original copy of the documents to be uploaded!...All documents to be uploaded in .pdf format only</p>
+        </div>
+        <div class="flex ml-24 fontsizedocuments font-bold">
+            <i class="bi bi-circle-fill ml-7"></i>
+            <p class="ml-3"> Please upload clear scan copies of all your documents</p>
+        </div>
+        <div class="flex ml-24 fontsizedocuments font-bold">
+            <i class="bi bi-circle-fill ml-7"></i>
+            <p class="ml-3"> Camera scanned copies/picture clicked copies are strictly NOT ACCEPTABLE</p>
+        </div>
+        <div class="flex ml-24 fontsizedocuments font-bold">
+            <i class="bi bi-circle-fill ml-7"></i>
+            <p class="ml-3"> HR Document Approve Status : </p>
+            <i class="bi bi-circle-fill ml-2 text-green-700"></i>
+            <p class="ml-3"> Approved , </p>
+            <i class="bi bi-circle-fill ml-2 text-red-700"></i>
+            <p class="ml-3"> Rejected , </p>
+            <i class="bi bi-circle-fill ml-2 text-yellow-700"></i>
+            <p class="ml-3"> Verification Pending </p>
+        </div>
+    </div>
+
+    <div>
+        <form #documentsUpload="ngForm" (ngSubmit)="storeDocumentUploadForm(documentsUpload)">
+            <div class="flex">
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewDataPrivacy()">Data Privacy Document</h2>
+                    </div>
+                    <div class="{{showDataPrivacy}} border-2 border-slate-200 h-20 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-5 mr-5 flex space-x-64">
+                            <div class="ml-3 mt-0.5">
+                                <small class="font-semibold">Data Privacy Document</small>
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewDataPrivacy()" type="button" class="font-semibold"><small>Click Here to View the Document</small></button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewProofOfAge()">Proof of Age</h2>
+                    </div>
+                    <div class="{{showProofOfAge}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="proof-of-age" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewProofOFAge()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-80 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">Proof of Age.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="flex">
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewDrivingLicense()">Driving License</h2>
+                    </div>
+                    <div class="{{showDrivingLicense}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="driving-license" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewDrivingLicense()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-72 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">Driving License.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewPassport()">Passport</h2>
+                    </div>
+                    <div class="{{showPassport}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="passport" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewPassport()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-72 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">Passport.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex">
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewPanCard()">Pan Card</h2>
+                    </div>
+                    <div class="{{showPanCard}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="pancard" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewPanCard()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-80 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">Pan Card.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewAadharCard()">Aadhar Card</h2>
+                    </div>
+                    <div class="{{showAadharCard}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="aadhar-card" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewAadharCard()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-72 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">Aadhar Card.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex">
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewSSC()">SSC Marksheet</h2>
+                    </div>
+                    <div class="{{showSSC}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="ssc-marksheet" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewSSC()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-72 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">SSC Marksheet.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewHSC()">HSC Marksheet</h2>
+                    </div>
+                    <div class="{{showHSC}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="hsc-marksheet" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewHSC()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-72 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">HSC Marksheet.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewDegreeMarksheet()">Degree Marksheet</h2>
+                    </div>
+                    <div class="{{showDegreeMarksheet}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="degree-marksheet" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewDegreeMarksheet()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-72 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">Degree Marksheet.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewProvisionalOrPassing()">Degree Provisional/Passing Certificate</h2>
+                    </div>
+                    <div class="{{showProvisionalOrPassing}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="degree-provisional-or-passing" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewProvisionalOrPassing()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-72 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">Degree Certificate.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex">
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewPostDegreeMarksheet()">Post Degree Marksheet</h2>
+                    </div>
+                    <div class="{{showPostDegreeMarksheet}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="post-degree-marksheet" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewPostDegreeMarksheet()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-64 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">Post Degree Marksheet.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewPostDegreeProvisionalOrPassing()">Post Degree Provisional/Passing Certificate</h2>
+                    </div>
+                    <div class="{{showPostDegreeProvisionalOrPassing}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="post-degree-provisional-or-passing" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewPostDegreeProvisionalOrPassing()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-64 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">Post Degree Certificate.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex">
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewDiplomaMarksheet()">Diploma Marksheet</h2>
+                    </div>
+                    <div class="{{showDiplomaMarksheet}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="diploma-marksheet" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewDiplomaMarksheet()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-72 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">Diploma Marksheet.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widthnice ml-7 mr-7 mt-2">
+                    <div class="pt-0.5 h-9  bg-blue-100">
+                        <h2 class="font-semibold mt-1 ml-3 cursor-pointer" (click)="viewDiplomaProvisionalOrPassing()">Diploma Provisional/Passing Certificate</h2>
+                    </div>
+                    <div class="{{showDiplomaProvisionalOrPassing}} border-2 border-slate-200 h-28 w-full">
+                        <div class="mt-5 border-2 w-auto h-9 ml-2 mr-2 flex space-x-96">
+                            <div class="ml-3 mt-0.5 w-48">
+                                <input type="file" name="diploma-provisional-or-passing" class="font-semibold documentFont">
+                            </div>
+                            <div class="border-2 bg-slate-400 rounded-md w-auto m-0.5 pl-2 pr-2">
+                                <button (click)="clickToViewDiplomaProvisionalOrPassing()" type="button" class="font-semibold"><small>Upload</small></button>
+                            </div>
+                        </div>
+                        <div class="w-auto flex space-x-72 mt-4">
+                            <div class="flex">
+                                <div class="flex ml-2">
+                                    <i class="bi bi-file-earmark-pdf text-red-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-semibold">Diploma Certificate.pdf</p>
+                                </div>
+                                <div class="bg-green-100 rounded-md mt-1 ml-2">
+                                    <p class="text-green-700 font-bold textsize">Approved</p>
+                                </div>
+                            </div>
+                            <div class="flex pl-10">
+                                <div class="flex">
+                                    <i class="bi bi-file-earmark-arrow-up text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold cursor-pointer">Re-upload</p>
+                                </div>
+                                <div class="flex pl-2">
+                                    <i class="bi bi-eye text-blue-700"></i>
+                                    <p class="textsize mt-1 ml-2 font-bold text-blue-700 cursor-pointer">View</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="ml-96 pl-60 mt-2 mb-2">
+        <button class="border-1 bg-blue-900 text-white font-semibold rounded-md w-60 h-8">View Document Summary</button>
+    </div>
+
+</div>
