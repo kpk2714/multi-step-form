@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { PersonalDetailsComponent } from './personal-details.component';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { AuthService } from 'src/app/Service/auth.service';
+import { Personal } from './personal';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonalService {
 
-  constructor() { }
+  constructor(private http : HttpClient , private authService : AuthService) { }
 
   state()
   {
@@ -3737,5 +3741,26 @@ export class PersonalService {
               disname : "Uttar Dinajpur"
           },
     ]
+  }
+
+
+  personalData!: any;
+
+  getAllPersonalData() : Observable<any>{
+
+    console.log(this.authService.getCurrentLoggedUser());
+
+    const tokenId = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization',tokenId.toString());
+
+    this.http.get('http://localhost:1010/getPersonal/id='+this.authService.getCurrentLoggedUser(),{headers}).subscribe((result)=>{
+        this.personalData = result;
+    });
+
+    return new Observable<any>((subscriber)=>{
+        setTimeout(()=>{
+            subscriber.next(this.personalData);
+        },100);
+    });
   }
 }

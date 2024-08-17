@@ -6,9 +6,9 @@
         <div class="flex">
             <h3 class="text-gray-400 fontsize">Registration Form Completeness</h3>
             <div class="h-4 w-96 bg-white border-2 rounded-md ml-10 mt-1">
-                <div class="h-3 bg-green-700 rounded-md" [ngStyle]="{ 'width.%' : width}"></div>
+                <div class="h-3 bg-green-500 rounded-md" [ngStyle]="{ 'width.%' : width}"></div>
             </div>
-            <h3 class="fontpercentage font-semibold ml-3">{{width}}%</h3>
+            <h3 class="fontpercentage font-semibold ml-3 text-green-500">{{width}}%</h3>
         </div>
         <!-- <mat-progress-bar mode="determinate" [value]="percentagevalue"></mat-progress-bar> -->
     </div>
@@ -22,16 +22,25 @@
         <table>
             <tr class="bg-blue-50">
                 <th class="fontsize font-semibold py-2 px-3 w-auto">S.No</th>
-                <th class="fontsize font-semibold py-2 px-3 w-96">Name of Company</th>
-                <th class="fontsize font-semibold py-2 px-3 w-64">Industry Type</th>
-                <th class="fontsize font-semibold py-2 px-3 w-32">Position Held</th>
+                <th class="fontsize font-semibold py-2 px-3 w-64">Name of Company</th>
+                <th class="fontsize font-semibold py-2 px-3 w-48">Industry Type</th>
+                <th class="fontsize font-semibold py-2 px-3 w-64">Position Held</th>
                 <th class="fontsize font-semibold py-2 px-3 w-64">Job Profile</th>
                 <th class="fontsize font-semibold py-2 px-3 w-32">Gross Salary</th>
                 <th class="fontsize font-semibold py-2 px-3 w-32">From Date</th>
                 <th class="fontsize font-semibold py-2 px-3 w-32">End Date</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">Delete</th>
             </tr>
-            <tr>
-                <td></td>
+            <tr *ngFor="let company of companyData,index as i">
+                <th class="fontsize font-semibold py-2 px-3 w-auto">{{i+1}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-96">{{company.companyname}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-48">{{company.companytype}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-64">{{company.position}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-64">{{company.profile}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">{{company.salary}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">{{company.fromdate}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">{{company.enddate}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32"><i class="bi bi-trash text-red-700 cursor-pointer" (click)="deleteWork(company.companyId)"></i></th>
             </tr>
         </table>
     </div>
@@ -52,10 +61,9 @@
                             <label class="fontsize font-semibold">Name of Company</label>
                             <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
                         </div>
-                        <input name="companyname" type="text" required pattern="{{nameexpression}}"  placeholder="Ex - Tata Consultancy Service" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="work.companyname" #companyname="ngModel">
+                        <input name="companyname" type="text" required  placeholder="Ex - Tata Consultancy Service" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="work.companyname" #companyname="ngModel">
                         <div *ngIf="companyname.invalid && (companyname.dirty || companyname.touched)">
                             <div *ngIf="companyname.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
-                            <div *ngIf="companyname.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
                         </div>
                     </div>
         
@@ -64,10 +72,9 @@
                             <label class="fontsize font-semibold">Industry Type</label>
                             <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
                         </div>
-                        <input name="companytype" required pattern="{{nameexpression}}" placeholder="Ex - IT Service" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="work.companytype" #companytype="ngModel">
+                        <input name="companytype" required placeholder="Ex - IT Service" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="work.companytype" #companytype="ngModel">
                         <div *ngIf="companytype.invalid && (companytype.dirty || companytype.touched)">
                             <div *ngIf="companytype.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
-                            <div *ngIf="companyname.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
                         </div>
                     </div>
                 </div>
@@ -79,10 +86,9 @@
                                 <label class="fontsize font-semibold">Position Held</label>
                                 <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
                             </div>
-                            <input name="position" type="text" required placeholder="Ex - Senior Quality Engineer" pattern="{{nameexpression}}" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="work.position" #position="ngModel">
+                            <input name="position" type="text" required placeholder="Ex - Senior Quality Engineer" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="work.position" #position="ngModel">
                             <div *ngIf="position.invalid && (position.dirty || position.touched)">
                                 <div *ngIf="position.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
-                                <div *ngIf="position.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
                             </div>
                         </div>
         
@@ -90,10 +96,9 @@
                             <div class="flex">
                                 <label class="fontsize font-semibold">Job Profile</label>
                             </div>
-                            <input name="profile" type="text" placeholder="Ex - Quality Engineering (QA)" required pattern="{{nameexpression}}" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="work.profile" #profile="ngModel">
+                            <input name="profile" type="text" placeholder="Ex - Quality Engineering (QA)" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="work.profile" #profile="ngModel">
                             <div *ngIf="profile.invalid && (profile.dirty || profile.touched)">
                                 <div *ngIf="profile.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
-                                <div *ngIf="profile.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
                             </div>
                         </div>
         
@@ -102,10 +107,9 @@
                                 <label class="fontsize font-semibold">Gross Salary<small>(CTC - 4LPA)</small></label>
                                 <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
                             </div>
-                            <input name="salary" type="text" required placeholder="Ex - 10LPA" pattern="{{nameexpression}}" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="work.salary" #salary="ngModel">
+                            <input name="salary" type="text" required placeholder="Ex - 10LPA" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="work.salary" #salary="ngModel">
                             <div *ngIf="salary.invalid && (salary.dirty || salary.touched)">
                                 <div *ngIf="salary.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
-                                <div *ngIf="salary.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
                             </div>
                         </div>
                     </div>
@@ -135,6 +139,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div [ngClass]="{'mt-10 mb-10 flex ml-96 mr-96' : errorMessage!=null}" *ngIf="errorMessage!=null">
+            <p class="text-red-700 font-bold ml-64">{{errorMessage}}</p>
+        </div>
+
+        <div [ngClass]="{'mt-10 mb-10 flex ml-96 mr-96' : successMessage!=null}" *ngIf="successMessage!=null">
+            <p class="text-green-700 font-bold ml-64">{{successMessage}}</p>
         </div>
 
         <div class="{{showSaveCancelButton}}">

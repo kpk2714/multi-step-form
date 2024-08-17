@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,9 +6,18 @@ import { Router } from '@angular/router';
   templateUrl: './nav-two.component.html',
   styleUrls: ['./nav-two.component.css']
 })
-export class NavTwoComponent {
+export class NavTwoComponent implements OnInit{
 
       constructor(private router : Router){}
+
+      routeVar : any;
+      candidateVar : any;
+
+      ngOnInit(): void {
+        const routeString = this.router.url.split('/');
+        this.routeVar = routeString[routeString.length-1];
+        this.candidateVar = routeString[routeString.length-2];
+      }
 
       textColorHo : String = "";
       bgColorHo : String = "";
@@ -19,22 +28,23 @@ export class NavTwoComponent {
       textColorHe : String = "";
       bgColorHe : String = "";
 
-      changeStyleHo() : void {
-          this.textColorHo = "text-orange-400";
-          this.bgColorHo = "bg-red-50";
+      changeStyleHo() {
 
-          this.textColorCa = "";
-          this.bgColorCa = "";
+        this.textColorHo = "text-orange-400";
+        this.bgColorHo = "bg-red-50";
 
-          this.textColorHe = "";
-          this.bgColorHe = "";
+        this.textColorCa = "";
+        this.bgColorCa = "";
 
-          this.router.navigate(['pages/home']);
+        this.textColorHe = "";
+        this.bgColorHe = "";
+
+        
       }
 
       changeStyleCa() : void {
 
-        this.router.navigate(['pages/candidate-register']);
+        
         
           this.textColorHo = "";
           this.bgColorHo = "";
@@ -58,6 +68,18 @@ export class NavTwoComponent {
           this.textColorHe = "text-orange-400";
           this.bgColorHe = "bg-red-50";
 
-          this.router.navigate(['pages/helpdesk']);
+          
+  }
+
+  navigateToHome() : void {
+    this.router.navigate(['pages/home']);
+  }
+
+  navigateToRegistration() : void {
+    this.router.navigate(['pages/candidate-register/personal-details']);
+  }
+
+  navigateToHelpdesk() : void {
+    this.router.navigate(['pages/helpdesk']);
   }
 }

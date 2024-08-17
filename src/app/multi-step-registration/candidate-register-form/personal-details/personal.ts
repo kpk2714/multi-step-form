@@ -1,6 +1,7 @@
 export class Personal 
 {
     image : String | undefined;
+    userId : String | undefined;
     title : String | undefined;
     firstname : String | undefined;
     middlename : String | undefined;
@@ -47,6 +48,8 @@ export class Personal
     mailingdistrict : String | undefined;
     city : String | undefined;
     postalcode : String | undefined;
+
+    width! : number;
 
     constructor(){}
 

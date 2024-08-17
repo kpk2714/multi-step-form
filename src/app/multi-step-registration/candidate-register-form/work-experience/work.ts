@@ -1,5 +1,7 @@
 export class Work {
 
+    userId : String | undefined;
+    companyId : String | undefined;
     companyname : String | undefined;
     companytype : String | undefined;
     position : String | undefined;

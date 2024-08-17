@@ -6,9 +6,9 @@
         <div class="flex">
             <h3 class="text-gray-400 fontsize">Registration Form Completeness</h3>
             <div class="h-4 w-96 bg-white border-2 rounded-md ml-10 mt-1">
-                <div class="h-3 bg-green-700 rounded-md" [ngStyle]="{ 'width.%' : width}"></div>
+                <div class="h-3 bg-green-500 rounded-md" [ngStyle]="{ 'width.%' : width}"></div>
             </div>
-            <h3 class="fontpercentage font-semibold ml-3">{{width}}%</h3>
+            <h3 class="fontpercentage font-semibold ml-3 text-green-500">{{width}}%</h3>
         </div>
         <!-- <mat-progress-bar mode="determinate" [value]="percentagevalue"></mat-progress-bar> -->
     </div>
@@ -27,11 +27,16 @@
                 <th class="fontsize font-semibold py-2 px-3 w-32">Read</th>
                 <th class="fontsize font-semibold py-2 px-3 w-32">Write</th>
                 <th class="fontsize font-semibold py-2 px-3 w-32">Speak</th>
-                <th class="fontsize font-semibold py-2 px-3 w-32">Edit</th>
-                <th class="fontsize font-semibold py-2 px-3 w-32">Delete</th>
+                <th class="fontsize font-semibold py-2 px-3 w-64">Delete</th>
             </tr>
-            <tr>
-                <td></td>
+            <tr *ngFor="let language of languageData,index as i">
+                <th class="fontsize font-semibold py-2 px-3 w-auto">{{i+1}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-96">{{language.languageType}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-96">{{language.languageCode}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">{{language.isRead}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">{{language.isWrite}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-32">{{language.isSpeak}}</th>
+                <th class="fontsize font-semibold py-2 px-3 w-64"><i class="bi bi-trash text-red-700 cursor-pointer" (click)="deleteLanguage(language.languageId)"></i></th>
             </tr>
         </table>
     </div>
@@ -52,14 +57,12 @@
                             <label class="fontsize font-semibold">Language Type</label>
                             <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
                         </div>
-                        <select name="languageType" required pattern="{{nameexpression}}" class="w-80 border-2 fontsize font-bold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="language.languageType" #languageType="ngModel">
+                        <select name="languageType" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="language.languageType" #languageType="ngModel">
                             <option class="fontsize font-semibold">Mother Tongue</option>
                             <option class="fontsize font-semibold">Other Tongue</option>
                         </select>
                         <div *ngIf="languageType.invalid && (languageType.dirty || languageType.touched)">
-                            <div *ngIf="languageType.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
-                            <div *ngIf="languageType.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
-                        </div>
+                            <div *ngIf="languageType.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>                        </div>
                     </div>
         
                     <div class="pt-2">
@@ -67,10 +70,9 @@
                             <label class="fontsize font-semibold">Language Code</label>
                             <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
                         </div>
-                        <input name="languageCode" type="text" required pattern="{{nameexpression}}" placeholder="Ex - Bengali" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="language.languageCode" #languageCode="ngModel">
+                        <input name="languageCode" type="text" required placeholder="Ex - Bengali" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="language.languageCode" #languageCode="ngModel">
                         <div *ngIf="languageCode.invalid && (languageCode.dirty || languageCode.touched)">
                             <div *ngIf="languageCode.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
-                            <div *ngIf="languageCode.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
                         </div>
                     </div>
                 </div>
@@ -82,13 +84,12 @@
                                 <label class="fontsize font-semibold">Read</label>
                                 <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
                             </div>
-                            <select name="Read" required pattern="{{nameexpression}}" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="language.Read" #Read="ngModel">
+                            <select name="Read" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 rounded-md focus:outline-none" [(ngModel)]="language.isRead" #Read="ngModel">
                                 <option class="fontsize font-semibold">True</option>
                                 <option class="fontsize font-semibold">False</option>
                             </select>
                             <div *ngIf="Read.invalid && (Read.dirty || Read.touched)">
                                 <div *ngIf="Read.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
-                                <div *ngIf="Read.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
                             </div>
                         </div>
         
@@ -97,13 +98,12 @@
                                 <label class="fontsize font-semibold">Write</label>
                                 <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
                             </div>
-                            <select name="Write" required pattern="{{nameexpression}}" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="language.Write" #Write="ngModel">
+                            <select name="Write" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="language.isWrite" #Write="ngModel">
                                 <option class="fontsize font-semibold">True</option>
                                 <option class="fontsize font-semibold">False</option>
                             </select>
                             <div *ngIf="Write.invalid && (Write.dirty || Write.touched)">
                                 <div *ngIf="Write.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
-                                <div *ngIf="Write.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
                             </div>
                         </div>
         
@@ -112,13 +112,12 @@
                                 <label class="fontsize font-semibold">Speak</label>
                                 <div class="w-1.5 h-1.5"><img src="assets/images/asteric.png"></div>
                             </div>
-                            <select name="Speak" required pattern="{{nameexpression}}" class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="language.Speak" #Speak="ngModel">
+                            <select name="Speak" required class="w-80 border-2 fontsize font-semibold border-gray-300 h-9 pl-3 ml-0.5 rounded-md focus:outline-none" [(ngModel)]="language.isSpeak" #Speak="ngModel">
                                 <option class="fontsize font-semibold">True</option>
                                 <option class="fontsize font-semibold">False</option>
                             </select>
                             <div *ngIf="Speak.invalid && (Speak.dirty || Speak.touched)">
                                 <div *ngIf="Speak.errors?.['required']" class="text-red-500 fontsize font-semibold">This field is required !!!</div>
-                                <div *ngIf="Speak.errors?.['pattern']" class="text-red-500 fontsize font-semibold">Invalid Input !!!</div>
                             </div>
                         </div>
                     </div>
@@ -126,6 +125,14 @@
                     
                 </div>
             </div>
+        </div>
+
+        <div [ngClass]="{'mt-10 mb-10 flex ml-96 mr-96' : errorMessage!=null}" *ngIf="errorMessage!=null">
+            <p class="text-red-700 font-bold ml-64">{{errorMessage}}</p>
+        </div>
+
+        <div [ngClass]="{'mt-10 mb-10 flex ml-96 mr-96' : successMessage!=null}" *ngIf="successMessage!=null">
+            <p class="text-green-700 font-bold ml-64">{{successMessage}}</p>
         </div>
 
         <div class="{{showSaveCancelButton}}">

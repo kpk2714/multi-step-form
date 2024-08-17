@@ -5,12 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class ServiceService {
 
-  width : any;
+  width : number = 0;
 
   constructor() { }
 
   setMessage(data:any){
-    this.width = data;
+    this.width = this.width + data;
   }
 
   getMessage(){

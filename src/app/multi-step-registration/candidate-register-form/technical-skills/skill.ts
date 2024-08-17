@@ -1,9 +1,11 @@
 export class Skill {
 
-    nameofCertification : String | undefined;
+    userId : String | undefined;
+    skillId : String | undefined;
+    certificationName : String | undefined;
     category : String | undefined;
-    technicalskills : String | undefined;
+    technicalSkills : String | undefined;
     institute : String | undefined;
     duration : String | undefined;
-    certification : String | undefined;
+    certificateIsPresent : String | undefined;
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,8 +6,16 @@ import { Router } from '@angular/router';
   templateUrl: './candidate-nav.component.html',
   styleUrls: ['./candidate-nav.component.css']
 })
-export class CandidateNavComponent {
+export class CandidateNavComponent implements OnInit{
+
       constructor(private router : Router){}
+
+      routeVar : any;
+
+      ngOnInit(): void {
+        const routString = this.router.url.split('/');
+        this.routeVar = routString[routString.length-1];
+      }
 
       navigateToPer() : void {
           this.router.navigate(['pages/candidate-register/personal-details']);

@@ -15,24 +15,40 @@ import { DocumentsUploadComponent } from './multi-step-registration/candidate-re
 import { DeclarationsComponent } from './multi-step-registration/candidate-register-form/declarations/declarations.component';
 import { DataprivacyComponent } from './multi-step-registration/candidate-register-form/documents-upload/dataprivacy/dataprivacy.component';
 import { ProofOfAgeComponent } from './multi-step-registration/candidate-register-form/documents-upload/proof-of-age/proof-of-age.component';
+import { AuthGuardService, resolve } from './Service/auth-guard.service';
+import { ReplyComponent } from './multi-step-registration/help-desk/reply/reply.component';
 
 const routes: Routes = [
     { path : '' , component : LoginComponent},
-    { path : 'pages' , component : MultiStepRegistrationComponent},
-    { path : 'pages/home' , component : HomeComponent},
-    { path : 'pages/candidate-register' , component : CandidateRegisterFormComponent},
-    { path : 'pages/candidate-register/personal-details' , component : PersonalDetailsComponent},
-    { path : 'pages/candidate-register/education-details' , component : EducationDetailsComponent},
-    { path : 'pages/candidate-register/family-details' , component : FamilyDetailsComponent},
-    { path : 'pages/candidate-register/work-experience' , component : WorkExperienceComponent},
-    { path : 'pages/candidate-register/technical-skills' , component : TechnicalSkillsComponent},
-    { path : 'pages/candidate-register/languages-known' , component : LanguagesKnownComponent},
-    { path : 'pages/candidate-register/documents-upload' , component : DocumentsUploadComponent},
-    { path : 'pages/candidate-register/education-details' , component : EducationDetailsComponent},
-    { path : 'pages/candidate-register/declarations' , component : DeclarationsComponent},
-    { path : 'pages/candidate-register/documents-upload/dataprivacy' , component : DataprivacyComponent},
-    { path : 'pages/candidate-register/documents-upload/proof-of-age' , component : ProofOfAgeComponent},
-    { path : 'pages/helpdesk' , component : HelpDeskComponent},
+    { path : 'login' , component : LoginComponent},
+    { path : 'pages' , component : MultiStepRegistrationComponent , canActivate : [AuthGuardService]},
+    { path : 'pages/home' , component : HomeComponent, canActivate : [AuthGuardService]},
+    { path : 'pages/candidate-register' , component : CandidateRegisterFormComponent , canActivate : [AuthGuardService] },
+
+    { path : 'pages/candidate-register' , canActivate : [AuthGuardService] , children : [
+
+      { path : 'personal-details' , component : PersonalDetailsComponent , canDeactivate : [AuthGuardService] , resolve : {personalData : resolve} },
+      { path : 'education-details' , component : EducationDetailsComponent},
+      { path : 'family-details' , component : FamilyDetailsComponent},
+      { path : 'work-experience' , component : WorkExperienceComponent},
+      { path : 'technical-skills' , component : TechnicalSkillsComponent},
+      { path : 'languages-known' , component : LanguagesKnownComponent},
+      { path : 'documents-upload' , component : DocumentsUploadComponent},
+      { path : 'education-details' , component : EducationDetailsComponent},
+      { path : 'declarations' , component : DeclarationsComponent},
+      { path : 'documents-upload/dataprivacy' , component : DataprivacyComponent},
+      { path : 'documents-upload/proof-of-age' , component : ProofOfAgeComponent},
+
+    ]},
+
+    
+    { path : 'pages/helpdesk' , component : HelpDeskComponent , canActivate : [AuthGuardService]},
+
+    { path : 'pages/helpdesk' , canActivate : [AuthGuardService] , children : [
+      { path : 'reply' , component : ReplyComponent }
+    ]},
+
+    
 ];
 
 @NgModule({

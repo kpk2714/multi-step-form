@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,11 @@ import { CandidateNavComponent } from './multi-step-registration/candidate-regis
 import { FormsModule } from '@angular/forms';
 import { DataprivacyComponent } from './multi-step-registration/candidate-register-form/documents-upload/dataprivacy/dataprivacy.component';
 import { ProofOfAgeComponent } from './multi-step-registration/candidate-register-form/documents-upload/proof-of-age/proof-of-age.component';
+import { NgConfirmModule } from 'ng-confirm-box';
+import { ConfirmComponent } from './confirm/confirm.component';
+import { ReplyComponent } from './multi-step-registration/help-desk/reply/reply.component';
+import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
@@ -46,11 +52,25 @@ import { ProofOfAgeComponent } from './multi-step-registration/candidate-registe
     CandidateNavComponent,
     DataprivacyComponent,
     ProofOfAgeComponent,
+    ConfirmComponent,
+    ReplyComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    FormsModule,
+    NgConfirmModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000, 
+      positionClass: 'toast-top-center', 
+      preventDuplicates: true, 
+      progressBar: true, 
+      closeButton: true,
+    })
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
