@@ -3760,7 +3760,7 @@ export class PersonalService {
     return new Observable<any>((subscriber)=>{
         setTimeout(()=>{
             subscriber.next(this.personalData);
-        },100);
+        },500);
     });
   }
 }

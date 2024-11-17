@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/Service/auth.service';
 import { Width } from 'src/app/Model/width';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -30,6 +31,36 @@ export class WorkExperienceComponent {
     const tokenId = this.authService.getToken();
     const headers = new HttpHeaders().set('Authorization',tokenId.toString());
 
+    this.getWidth(headers);
+    this.getCompanyData(headers);
+    this.verifyCompanyDelete(headers);
+  }
+
+  verifyCompanyDelete(headers : any){
+    this.getCompanyWidth().subscribe({
+      next : (data)=>{
+        if(data!=0 && this.companyData?.length==0){
+          this.http.delete('http://localhost:1010/deleteWidth/userId='+this.authService.getCurrentLoggedUser()+'/form=Work-Experience',{headers}).subscribe({
+            next : ()=>{
+              this.getWidth(headers);
+            },
+            error : (error)=>{
+              console.log(error);
+            }
+          });
+        }
+      },
+      error : (error)=>{
+        console.log(error);
+      }
+    });
+  }
+
+  getCompanyWidth() : Observable<any>{
+    return this.http.get('http://localhost:1010/getWidth/userId='+this.authService.getCurrentLoggedUser()+'/form='+'Work-Experience');
+  }
+
+  getWidth(headers : any){
     this.http.get('http://localhost:1010/getWidth/userId='+this.authService.getCurrentLoggedUser(),{headers}).subscribe({
       next : (data)=>{
         this.width = data;
@@ -39,13 +70,15 @@ export class WorkExperienceComponent {
           this.toastr.warning('Token Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
           this.router.navigate(['/login']);
         }
+        if(error.error.message==='Token Mismatch Exception Occurred !!!'){
+          this.toastr.warning('Session Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
+          this.router.navigate(['/login']);
+        }
       }
     });
-
-    this.getComanyData(headers);
   }
 
-  getComanyData(headers : any){
+  getCompanyData(headers : any){
     this.http.get('http://localhost:1010/getCompany/userId='+this.authService.getCurrentLoggedUser() , {headers}).subscribe({
       next : (data : any)=>{
         this.companyData = data;
@@ -53,7 +86,7 @@ export class WorkExperienceComponent {
       error : (error)=>{
         console.log(error);
       }
-  });
+    });
   }
 
   showSaveCancelButton : String = "hidden";
@@ -89,6 +122,7 @@ export class WorkExperienceComponent {
     this.http.post('http://localhost:1010/saveCompany',this.work,{headers}).subscribe({
         next : ()=>{
           this.successMessage = "Data Saved Successfully !!!";
+          this.getCompanyData(headers);
         },
         error : ()=>{
           this.errorMessage = "Data not saved . Please Check !!!";
@@ -127,8 +161,7 @@ export class WorkExperienceComponent {
 
     this.http.delete('http://localhost:1010/deleteWork/userId='+this.authService.getCurrentLoggedUser(),{params , headers}).subscribe({
       next : ()=>{
-        console.log('Company Data is deleted');
-        this.getComanyData(params);
+        this.getCompanyData(headers);
       },
       error : (error)=>{
         console.log(error);

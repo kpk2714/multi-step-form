@@ -68,6 +68,10 @@ export class PersonalDetailsComponent  {
             this.toastr.warning('Token Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
             this.router.navigate(['/login']);
           }
+          if(error.error.message==='Token Mismatch Exception Occurred !!!'){
+            this.toastr.warning('Session Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
+            this.router.navigate(['/login']);
+          }
         }
       });
     }

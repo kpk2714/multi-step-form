@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/Service/auth.service';
 import { Width } from 'src/app/Model/width';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-languages-known',
@@ -28,6 +29,37 @@ export class LanguagesKnownComponent {
     const tokenId = this.authService.getToken();
     const headers = new HttpHeaders().set('Authorization',tokenId.toString());
 
+    this.getWidth(headers);
+    this.getLanguageData(headers);
+    this.verifyLanguageDelete(headers);
+  }
+
+  verifyLanguageDelete(headers : any){
+    this.getLanguageWidth().subscribe({
+      next : (data)=>{
+        if(data!=0 && this.languageData?.length==0){
+          this.http.delete('http://localhost:1010/deleteWidth/userId='+this.authService.getCurrentLoggedUser()+'/form=Language',{headers}).subscribe({
+            next : ()=>{
+              this.getWidth(headers);
+            },
+            error : (error)=>{
+              console.log(error);
+            }
+          });
+        }
+      },
+      error : (error)=>{
+        console.log(error);
+      }
+    });
+  }
+
+  getLanguageWidth() : Observable<any>{
+    return this.http.get('http://localhost:1010/getWidth/userId='+this.authService.getCurrentLoggedUser()+'/form='+'Language');
+  }
+
+
+  getWidth(headers : any){
     this.http.get('http://localhost:1010/getWidth/userId='+this.authService.getCurrentLoggedUser(),{headers}).subscribe({
       next : (data)=>{
         this.width = data;
@@ -37,10 +69,12 @@ export class LanguagesKnownComponent {
           this.toastr.warning('Token Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
           this.router.navigate(['/login']);
         }
+        if(error.error.message==='Token Mismatch Exception Occurred !!!'){
+          this.toastr.warning('Session Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
+          this.router.navigate(['/login']);
+        }
       }
     });
-
-    this.getLanguageData(headers);
   }
 
   getLanguageData(headers : any){
@@ -90,6 +124,7 @@ export class LanguagesKnownComponent {
       this.http.post('http://localhost:1010/saveLanguage',this.language,{headers}).subscribe({
         next : ()=>{
           this.successMessage = "Data Saved Successfully !!!";
+          
         },
         error : ()=>{
           this.errorMessage = "Data not saved , Please Check !!!";
@@ -129,7 +164,7 @@ export class LanguagesKnownComponent {
 
       this.http.delete('http://localhost:1010/deleteLanguage/languageId='+id,{params,headers}).subscribe({
         next : ()=>{
-            this.getLanguageData(params);
+            this.getLanguageData(headers);
         },
         error : (error)=>{
           console.log(error);
