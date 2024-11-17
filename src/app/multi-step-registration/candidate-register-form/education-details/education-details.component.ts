@@ -11,6 +11,7 @@ import { Secondary } from './secondary';
 import { Width } from 'src/app/Model/width';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-education-details',
@@ -37,6 +38,37 @@ export class EducationDetailsComponent {
     const tokenId = this.authService.getToken();
     const headers = new HttpHeaders().set('Authorization',tokenId.toString());
 
+    this.getWidth(headers);
+    
+    this.getSecondary(headers);
+    this.getHigherSecondary(headers);
+    this.getDiploma(headers);
+    this.getGraduation(headers);
+
+    this.getEducationWidth().subscribe({
+      next : (data)=>{
+        if(data!=0 && this.secondaryData==null && this.hsData==null && this.diplomaData==null && this.graduationData==null){
+          this.http.delete('http://localhost:1010/deleteWidth/userId='+this.authService.getCurrentLoggedUser()+'/form=Education',{headers}).subscribe({
+            next : ()=>{
+              this.getWidth(headers);
+            },
+            error : (error)=>{
+              console.log(error);
+            }
+          });
+        }
+      },
+      error : (error)=>{
+        console.log(error);
+      }
+    })
+  }
+
+  getEducationWidth() : Observable<any>{
+    return this.http.get('http://localhost:1010/getWidth/userId='+this.authService.getCurrentLoggedUser()+'/form='+'Education');
+  }
+
+  getWidth(headers : any){
     this.http.get('http://localhost:1010/getWidth/userId='+this.authService.getCurrentLoggedUser(),{headers}).subscribe({
       next : (data)=>{
         this.width = data;
@@ -46,13 +78,12 @@ export class EducationDetailsComponent {
           this.toastr.warning('Token Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
           this.router.navigate(['/login']);
         }
+        if(error.error.message==='Token Mismatch Exception Occurred !!!'){
+          this.toastr.warning('Session Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
+          this.router.navigate(['/login']);
+        }
       }
     });
-
-    this.getSecondary(headers);
-    this.getHigherSecondary(headers);
-    this.getDiploma(headers);
-    this.getGraduation(headers);
   }
 
   getSecondary(headers : any){

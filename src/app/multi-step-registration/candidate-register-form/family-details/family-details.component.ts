@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 import { ServiceService } from '../sharedService/service.service';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -10,13 +10,14 @@ import { Father } from './father';
 import { Width } from 'src/app/Model/width';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-family-details',
   templateUrl: './family-details.component.html',
   styleUrls: ['./family-details.component.css']
 })
-export class FamilyDetailsComponent {
+export class FamilyDetailsComponent implements OnInit{
 
   constructor(private Sservice : ServiceService , private http : HttpClient , private authService : AuthService , 
     private router : Router , private toastr : ToastrService
@@ -34,6 +35,34 @@ export class FamilyDetailsComponent {
     const tokenId = this.authService.getToken();
     const headers = new HttpHeaders().set('Authorization',tokenId.toString());
 
+    this.getWidth(headers);
+    
+    this.getFather(headers);
+    this.getMother(headers);
+    this.getWifeHus(headers);
+    this.getChild(headers);
+
+    this.getFamilyWidth().subscribe({
+      next : (data)=>{
+        if(data!=0 && this.fatherData==null && this.motherData==null && this.wifeHusData==null && this.childData==null){
+          this.http.delete('http://localhost:1010/deleteWidth/userId='+this.authService.getCurrentLoggedUser()+'/form=Family',{headers}).subscribe({
+            next : ()=>{
+              this.getWidth(headers);
+            },
+            error : (error)=>{
+              console.log(error);
+            }
+          });
+        }
+      },
+      error:(error)=>{
+        console.log(error);
+      }
+    });
+    
+  }
+
+  getWidth(headers : any){
     this.http.get('http://localhost:1010/getWidth/userId='+this.authService.getCurrentLoggedUser() , {headers}).subscribe({
       next : (data)=>{
         this.width = data;
@@ -43,16 +72,16 @@ export class FamilyDetailsComponent {
           this.toastr.warning('Token Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
           this.router.navigate(['/login']);
         }
+        if(error.error.message==='Token Mismatch Exception Occurred !!!'){
+          this.toastr.warning('Session Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
+          this.router.navigate(['/login']);
+        }
       }
     });
+  }
 
-    this.getFather(headers);
-
-    this.getMother(headers);
-
-    this.getWifeHus(headers);
-
-    this.getChild(headers);
+  getFamilyWidth() : Observable<any>{
+    return this.http.get('http://localhost:1010/getWidth/userId='+this.authService.getCurrentLoggedUser()+'/form='+'Family');
   }
 
   getFather(headers : any){
@@ -191,6 +220,22 @@ export class FamilyDetailsComponent {
     const tokenId = this.authService.getToken();
     const headers = new HttpHeaders().set('Authorization',tokenId.toString());
 
+    if(this.fatherData==null && this.motherData==null && this.wifeHusData==null && this.childData==null){
+      
+      this.newWidth.userId = this.authService.getCurrentLoggedUser();
+      this.newWidth.width = 14+this.width;
+      this.newWidth.formname = 'Family';
+
+      this.http.post('http://localhost:1010/saveWidth',this.newWidth,{headers}).subscribe({
+        next : ()=>{
+
+        },
+        error : (error)=>{
+          console.log(error);
+        }
+      });
+    }
+
     this.http.post('http://localhost:1010/saveFather',this.father,{headers}).subscribe({
       next : ()=>{
           this.successMessage = "Data Saved Successfully !!!";
@@ -212,22 +257,6 @@ export class FamilyDetailsComponent {
           this.successMessage = "";
       }
     });
-
-    if(this.fatherData==null && this.motherData==null && this.wifeHusData==null && this.childData==null){
-      
-      this.newWidth.userId = this.authService.getCurrentLoggedUser();
-      this.newWidth.width = 14+this.width;
-      this.newWidth.formname = 'Family';
-
-      this.http.post('http://localhost:1010/saveWidth',this.newWidth,{headers}).subscribe({
-        next : ()=>{
-
-        },
-        error : (error)=>{
-          console.log(error);
-        }
-      });
-    }
 
     this.http.post('http://localhost:1010/saveWifeHus',this.wifeHus,{headers}).subscribe({
       next : ()=>{
@@ -273,7 +302,17 @@ export class FamilyDetailsComponent {
 
     this.http.delete('http://localhost:1010/deleteFather/userId='+this.authService.getCurrentLoggedUser(),{headers}).subscribe({
       next : ()=>{
-        this.getFather(headers);
+        if(this.wifeHusData!=null){
+          if(this.wifeHusData.wifeHus=='false'){
+            this.deleteWifeHus();
+          }
+        }
+
+        if(this.childData!=null){
+          if(this.childData.child=='false'){
+            this.deleteChild();
+          }
+        }
       },
       error : (error)=>{
         console.log(error);
@@ -289,6 +328,18 @@ export class FamilyDetailsComponent {
     this.http.delete('http://localhost:1010/deleteMother/userId='+this.authService.getCurrentLoggedUser(),{headers}).subscribe({
       next : ()=>{
         this.getMother(headers);
+
+        if(this.wifeHusData!=null){
+          if(this.wifeHusData.wifeHus=='false'){
+            this.deleteWifeHus();
+          }
+        }
+
+        if(this.childData!=null){
+          if(this.childData.child=='false'){
+            this.deleteChild();
+          }
+        }
       },
       error : (error)=>{
         console.log(error);

@@ -23,49 +23,49 @@
         </div>
         <div class="flex space-x-64 widthx">
             <p class="w-64">Personal Details</p>
-            <p style="color:green" *ngIf="width>=14;else personalelse" class="font-bold">Completed</p>
+            <p style="color:green" *ngIf="personal!=null;else personalelse" class="font-bold">Completed</p>
             <ng-template #personalelse>
                 <p style="color:red" class="font-bold">Not Completed</p>
             </ng-template>
         </div>
         <div class="flex space-x-64 widthx">
             <p class="w-64">Educational Details</p>
-            <p style="color:green" *ngIf="width>=28;else educationalelse" class="font-bold">Completed</p>
+            <p style="color:green" *ngIf="educationData!=null;else educationalelse" class="font-bold">Completed</p>
             <ng-template #educationalelse>
                 <p style="color:red" class="font-bold">Not Completed</p>
             </ng-template>
         </div>
         <div class="flex space-x-64 widthx">
             <p class="w-64">Family Details</p>
-            <p style="color:green" *ngIf="width>=42;else familyelse" class="font-bold">Completed</p>
+            <p style="color:green" *ngIf="familyData!=null;else familyelse" class="font-bold">Completed</p>
             <ng-template #familyelse>
                 <p style="color:red" class="font-bold">Not Completed</p>
             </ng-template>
         </div>
         <div class="flex space-x-64 widthx">
             <p class="w-64">Work Experience</p>
-            <p style="color:green" *ngIf="width>=56;else workelse" class="font-bold">Completed</p>
+            <p style="color:green" *ngIf="companyData.length>0;else workelse" class="font-bold">Completed</p>
             <ng-template #workelse>
                 <p style="color:red" class="font-bold">Not Completed</p>
             </ng-template>
         </div>
         <div class="flex space-x-64 widthx">
             <p class="w-64">Technical Skills</p>
-            <p style="color:green" *ngIf="width>=70;else skillElse" class="font-bold">Completed</p>
+            <p style="color:green" *ngIf="technicalData.length>0;else skillElse" class="font-bold">Completed</p>
             <ng-template #skillElse>
                 <p style="color:red" class="font-bold">Not Completed</p>
             </ng-template>
         </div>
         <div class="flex space-x-64 widthx">
             <p class="w-64">Language Known</p>
-            <p style="color:green" *ngIf="width>=84;else languageElse" class="font-bold">Completed</p>
+            <p style="color:green" *ngIf="languageData.length>0;else languageElse" class="font-bold">Completed</p>
             <ng-template #languageElse>
                 <p style="color:red" class="font-bold">Not Completed</p>
             </ng-template>
         </div>
         <div class="flex space-x-64 widthx">
             <p class="w-64">Documents Upload</p>
-            <p style="color:green" *ngIf="width>=100;else documentselse" class="font-bold">Completed</p>
+            <p style="color:green" *ngIf="isComplete==true;else documentselse" class="font-bold">Completed</p>
             <ng-template #documentselse>
                 <p style="color:red" class="font-bold">Not Completed</p>
             </ng-template>

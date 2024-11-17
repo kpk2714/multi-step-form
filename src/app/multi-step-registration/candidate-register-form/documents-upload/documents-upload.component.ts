@@ -35,6 +35,10 @@ export class DocumentsUploadComponent {
             this.toastr.warning('Token Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
             this.router.navigate(['/login']);
           }
+          if(error.error.message==='Token Mismatch Exception Occurred !!!'){
+            this.toastr.warning('Session Expired !!!','Warning' , {timeOut : 2000 , positionClass : 'toast-top-center' , progressBar : true , closeButton : true});
+            this.router.navigate(['/login']);
+          }
         }
     });
 
@@ -298,7 +302,7 @@ export class DocumentsUploadComponent {
     this.pdfService.upload('http://localhost:1010/savePdf',this.selectedFile,'ProofOfAge','Pending').subscribe({
       next : ()=>{
         this.getProofOfAge();
-        proofOfAge.value = '';
+        proofOfAge.value = "";
       },
       error : (error)=>{
         console.log(error);
@@ -631,10 +635,8 @@ export class DocumentsUploadComponent {
   }
 
 
-
-
-
   proofOfAgePdf : any;
+ 
 
   getProofOfAge(){
     const tokenId = this.authService.getToken();
@@ -880,11 +882,11 @@ export class DocumentsUploadComponent {
     this.newWidth.formname = 'Documents';
 
     const tokenId = this.authService.getToken();
-    const params = new HttpParams().set('tokenId',tokenId.toString());
+    const headers = new HttpHeaders().set('Authorization',tokenId.toString());
 
-    this.http.post('http://localhost:1010/saveWidth',this.newWidth,{params}).subscribe({
+    this.http.post('http://localhost:1010/saveWidth',this.newWidth,{headers}).subscribe({
         next : ()=>{
-          this.successMessage = "Documents Uploadded";
+          this.successMessage = "Documents Uploaded";
       },
       error : (error)=>{
         console.log(error);
